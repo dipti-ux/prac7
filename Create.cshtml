@@ -1,0 +1,105 @@
+﻿
+@model FeedbackManagement.Models.Feedback
+
+@{
+    ViewBag.Title = "Give Feedback";
+}
+
+<h2>Give Feedback</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(m => m.Name)
+        <br />
+        @Html.TextBoxFor(
+            m => m.Name,
+            new { placeholder = "Enter your name" }
+        )
+
+        <br />
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        <br />
+
+        @Html.TextBoxFor(
+            m => m.Email,
+            new
+            {
+                type = "email",
+                placeholder = "Enter your email"
+            }
+        )
+
+        <br />
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(m => m.Message)
+        <br />
+
+        @Html.TextAreaFor(
+            m => m.Message,
+            new
+            {
+                rows = 5,
+                cols = 50,
+                placeholder = "Enter your feedback"
+            }
+        )
+
+        <br />
+        @Html.ValidationMessageFor(m => m.Message)
+    </div>
+
+    <br />
+
+    <div>
+        @Html.LabelFor(m => m.Rating)
+        <br />
+
+        @Html.DropDownListFor(
+            m => m.Rating,
+            new SelectList(
+                new[]
+                {
+                    new { Value = "1", Text = "1 - Poor" },
+                    new { Value = "2", Text = "2 - Fair" },
+                    new { Value = "3", Text = "3 - Good" },
+                    new { Value = "4", Text = "4 - Very Good" },
+                    new { Value = "5", Text = "5 - Excellent" }
+                },
+                "Value",
+                "Text"
+            ),
+            "Select Rating"
+        )
+
+        <br />
+        @Html.ValidationMessageFor(m => m.Rating)
+    </div>
+
+    <br />
+
+    <input type="submit" value="Submit Feedback" />
+
+    <br />
+    <br />
+
+    @Html.ActionLink("Back to Feedback", "Index")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
